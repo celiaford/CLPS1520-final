@@ -46,19 +46,24 @@ end
 ISI = 0.5; % 500ms regardless of task speed
 
 % '<' (left) = animal, '>' (right) = nonanimal
-if computer == 1 % windows
-    respKeys = [188 190];
-    spacebar = 32;
-    escape = 27;
-elseif computer == 2 % mac
-    respKeys = []; % check with KbDemo
-    spacebar = [];
-    escape = [];
-else % linux
-    respKeys = []; % check with KbDemo
-    spacebar = [];
-    escape = [];
-end 
+
+respKeys = [KbName('<') KbName('>')];
+escape = [KbName('escape')];
+spacebar = KbName('space');
+
+%if computer == 1 % windows
+%    respKeys = [188 190];
+%    spacebar = 32;
+%    escape = 27;
+%elseif computer == 2 % mac
+%    respKeys = []; % check with KbDemo
+%    spacebar = [];
+%    escape = [];
+%else % linux
+%    respKeys = []; % check with KbDemo
+%    spacebar = [];
+%    escape = [];
+%end 
 
 fixcrossSize = 100;
 textSize = 30;
@@ -73,6 +78,14 @@ nonanimalCNN_path =  '~/nonanimal/CNN_good';
 animalHuman_path = '~/animal/human_good';
 animalCNN_path = '~/animal/CNN_good';
 addpath(nonanimalHuman_path,nonanimalCNN_path,animalHuman_path,animalCNN_path);
+
+% Build the trial results (TR) table early on so that the task can reference it instead of building task structure online.
+
+trialnums = 400; % replace this later so it matches with total # of images
+results = table;
+results.trialnum = 1:trialnums';
+results.folderID = randperm(4,trialnums)'; % so animal HG, animal CNNG, non-animal HG, non-animal CCNG
+results.imgID = randperm(trialnums, trialnums)';
 
 % saves lists of folder contents and saves image filenames
 nonanimalHuman_folder = dir(nonanimalHuman_path);
@@ -97,10 +110,10 @@ end
 
 % loads all images
 for i = 1:length(acImages) % assumes all folders contain the same number of image filenames
-    imread(nhImages{img});
-    imread(ncImages{img});
-    imread(ahImages{img});
-    imread(acImages{img});
+    imread(nhImages{i});
+    imread(ncImages{i});
+    imread(ahImages{i});
+    imread(acImages{i});
 end
 
 %%% ------------------------- TO DO ----------------------------------- %%%
