@@ -73,47 +73,40 @@ rightLocation = [xcenter+380,ycenter];
 
 %% Retrieves image data 
 % adds image folders to path
-nonanimalHuman_path = '~/nonanimal/human_good';
-nonanimalCNN_path =  '~/nonanimal/CNN_good';
-animalHuman_path = '~/animal/human_good';
-animalCNN_path = '~/animal/CNN_good';
-addpath(nonanimalHuman_path,nonanimalCNN_path,animalHuman_path,animalCNN_path);
-
-% Build the trial results (TR) table early on so that the task can reference it instead of building task structure online.
-
-trialnums = 400; % replace this later so it matches with total # of images
-results = table;
-results.trialnum = 1:trialnums';
-results.folderID = randperm(4,trialnums)'; % so animal HG, animal CNNG, non-animal HG, non-animal CCNG
-results.imgID = randperm(trialnums, trialnums)';
+CNNgood_animal_path = '~/Dropbox/CNNgood_animal';
+CNNbad_animal_path =  '~/Dropbox/CNNbad_animal';
+CNNgood_nonanimal_path = '~/Dropbox/CNNgood_nonanimal';
+CNNbad_nonanimal_path =  '~/Dropbox/CNNbad_nonanimal';
+addpath(CNNgood_animal_path,CNNbad_animal_path,CNNgood_nonanimal_path,CNNbad_nonanimal_path);
 
 % saves lists of folder contents and saves image filenames
-nonanimalHuman_folder = dir(nonanimalHuman_path);
+
+CNNgood_animal_folder = dir(nonanimalHuman_path);
 for img = length(nonanimalHuman_folder)
     nhImages{img} = nonanimalHuman_folder(img).name;
 end
 
-nonanimalCNN_folder = dir(nonanimalCNN_path);
+CNNbad_animal_folder = dir(nonanimalCNN_path);
 for img = length(nonanimalCNN_folder)
     ncImages{img} = nonanimalCNN_folder(img).name;
 end
 
-animalHuman_folder = dir(animalHuman_path);
+CNNgood_nonanimal_folder = dir(animalHuman_path);
 for img = length(animalHuman_folder)
     ahImages{img} = animalHuman_folder(img).name;
 end
 
-animalCNN_folder = dir(animalCNN_path);
+CNNbad_nonanimal_folder = dir(animalCNN_path);
 for img = length(animalCNN_folder)
     acImages{img} = animalCNN_folder(img).name;
 end
 
 % loads all images
 for i = 1:length(acImages) % assumes all folders contain the same number of image filenames
-    imread(nhImages{i});
-    imread(ncImages{i});
-    imread(ahImages{i});
-    imread(acImages{i});
+    nhImages_struct{i} = imread(nhImages{i});
+    ncImages_struct{i} = imread(ncImages{i});
+    ahImages_struct{i} = imread(ahImages{i});
+    acImages_struct{i} = imread(acImages{i});
 end
 
 %%% ------------------------- TO DO ----------------------------------- %%%
@@ -133,10 +126,108 @@ results.blockImages = blockImages;
 % randomly shuffle images and prepare all trials BEFORE beginning
 % experiment, to prevent lags in image presentation 
 
+% Build the trial results (TR) table early on so that the task can reference it instead of building task structure online.
+
+trialnums = 400; % replace this later so it matches with total # of images
+results = table;
+results.trialnum = 1:trialnums';
+results.folderID = randperm(4,trialnums)'; % so animal HG, animal CNNG, non-animal HG, non-animal CCNG
+results.imgID = randperm(trialnums, trialnums)';
+
 % SAVE IMAGE IDs FOR EACH BLOCK HERE (cell array, numTrials x 1)
 blockFileIDs = [];
 results.blockFileIDs = blockFileIDs;
+
+for i = 1:trialnums
+    imgID = results.imgID(i);
+    if imgID < 100
+        cd nonanimalHuman_path
+        j = imgID;
+        if j < 25
+        cd 'original'
+        img_struct{i} = nhImages_struct{j}
+        end
+        if j >= 25 && j < 50
+        cd 'blurred'
+        img_struct{i} = nhImages_struct{j}
+        end
+        if j >= 50 && j < 75
+        cd 'colored'
+        img_struct{i} = nhImages_struct{j}
+        end
+        if j >= 75 && j < 100
+        cd 'sharpened'
+        img_struct{i} = nhImages_struct{j}
+        end
+    end
+    if imgID < 200 && imgID >= 100
+        cd nonanimalCNN_path
+        j = imgID;
+        j = j - 100;
+        if j < 25
+        cd 'original'
+        img_struct{i} = nhImages_struct{j}
+        end
+        if j >= 25 && j < 50
+        cd 'blurred'
+        img_struct{i} = nhImages_struct{j}
+        end
+        if j >= 50 && j < 75
+        cd 'colored'
+        img_struct{i} = nhImages_struct{j}
+        end
+        if j >= 75 && j < 100
+        cd 'sharpened'
+        img_struct{i} = nhImages_struct{j}
+        end
+    end
+    if imgID < 300 && imgID >= 200
+        cd nonanimalCNN_path
+        j = imgID;
+        j = j - 200;
+        if j < 25
+        cd 'original'
+        img_struct{i} = nhImages_struct{j}
+        end
+        if j >= 25 && j < 50
+        cd 'blurred'
+        img_struct{i} = nhImages_struct{j}
+        end
+        if j >= 50 && j < 75
+        cd 'colored'
+        img_struct{i} = nhImages_struct{j}
+        end
+        if j >= 75 && j < 100
+        cd 'sharpened'
+        img_struct{i} = nhImages_struct{j}
+        end
+    end
+    if imgID < 400 && imgID >= 300
+        cd nonanimalCNN_path
+        j = imgID;
+        j = j - 100;
+        if j < 25
+        cd 'original'
+        img_struct{i} = nhImages_struct{j}
+        end
+        if j >= 25 && j < 50
+        cd 'blurred'
+        img_struct{i} = nhImages_struct{j}
+        end
+        if j >= 50 && j < 75
+        cd 'colored'
+        img_struct{i} = nhImages_struct{j}
+        end
+        if j >= 75 && j < 100
+        cd 'sharpened'
+        img_struct{i} = nhImages_struct{j}
+        end
+    end
+    end
+end
+
     % repeat for each block (if more than one block...?)
+    
 %%% ------------------------------------------------------------------- %%%
 
 %% Display Experiment Instructions
