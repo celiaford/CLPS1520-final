@@ -144,19 +144,19 @@ for i = 1:trialnums
         cd nonanimalHuman_path
         j = imgID;
         if j < 25
-        cd 'original'
-        img_struct{i} = nhImages_struct{j}
+        folder = 'original';
+        img_struct{i} = imread(j)
         end
         if j >= 25 && j < 50
-        cd 'blurred'
+        folder =  'blurred';
         img_struct{i} = nhImages_struct{j}
         end
         if j >= 50 && j < 75
-        cd 'colored'
+        folder = cd 'colored';
         img_struct{i} = nhImages_struct{j}
         end
         if j >= 75 && j < 100
-        cd 'sharpened'
+        folder =  'sharpened';
         img_struct{i} = nhImages_struct{j}
         end
     end
