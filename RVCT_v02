@@ -263,11 +263,10 @@ for i = 1:trialnums
 end
 
 % repeat for each block (if more than one block...?)
-
 %%% ------------------------------------------------------------------- %%%
 
 %% Display Experiment Instructions
-instructions = imread('~/instructions.jpg'); % make instructions as powerpoint slide, save as image
+instructions = imread('~/RVCT_CLPS1520/instructions/slide1.jpg'); 
 imageTexture = Screen('MakeTexture', window, instructions);
 Screen('DrawTexture', window, imageTexture, [], [], 0);
 Screen(window,'Flip')
@@ -283,6 +282,28 @@ while (~keycode(spacebar));
 end;
 while KbCheck;
 end;
+
+instructions = imread('~/RVCT_CLPS1520/instructions/slide2.jpg'); 
+imageTexture = Screen('MakeTexture', window, instructions);
+Screen('DrawTexture', window, imageTexture, [], [], 0);
+Screen(window,'Flip')
+
+% captures keyboard until spacebar is pressed
+[~,~,keycode] = KbCheck;
+while (~keycode(spacebar));
+    [~,~,keycode] = KbCheck;
+    WaitSecs(0.001); % ensures that loop doesn't hog CPU
+    if find(keycode) == escape; % closes screen if escape key is pressed
+        Screen('Closeall')
+    end
+end;
+while KbCheck;
+end;
+
+% ONCE SPACEBAR HAS BEEN PRESSED, display 'get ready!' text
+[~,~,~] = DrawFormattedText(window,'get ready!','center','center',black);
+Screen(window,'Flip');
+WaitSecs(3); 
 
 %% TRIAL LOOP %%
 
