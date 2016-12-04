@@ -1,8 +1,5 @@
 %% Object Segmentation: Human RCVCT Behavioral Experiment (TEST VERSION)
 % CLPS1520 Final Project
-% Debugging version of task, using only 100 images.
-%%% ------------------------- TO DO ----------------------------------- %%%
-% MERGE DATA SAVING STUFF INTO ACTUAL TASK
 
 %% Startup & participant information
 sca; clc; clear;
