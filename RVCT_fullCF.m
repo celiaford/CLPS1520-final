@@ -395,7 +395,7 @@ for trialNumber = 1:trialnums
 end
 
 % Save data
-save(fullfile('~/Dropbox','RVCT_CLPS1520','data_test',sprintf('%s.mat',results.subjectID)),'-struct','results');
+save(fullfile('~/Dropbox','RVCT_CLPS1520','data',sprintf('%s.mat',results.subjectID)),'-struct','results');
 
 %% END OF EXPERIMENT %%
 Screen('TextSize',window,textSize);
