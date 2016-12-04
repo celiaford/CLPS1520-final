@@ -13,11 +13,11 @@ results.subjectID = input('Enter Subject ID (NUM_INIT): ','s');
 results.speed = input('Enter Speed (1 = fast, 2 = slow): '); % 1 = 50ms flash, 500ms response; 2 = 100ms flash, 1000ms response
 screenSize = input('Full Screen Mode (0/1): '); % 0 = small screen (for debugging), 1 = full screen (for experiment)
 
-fnamebody = '_RVCT';
-files.mat = fullfile(cd, 'data', [results.subjectID fnamebody '.mat']);
-files.esc = fullfile(cd, 'data', ...
-    sprintf('%s%s_esc_%s.mat', results.subjectID, fnamebody, ...
-    datestr(now, 'mmddyy_HHMMSS') ) );
+% fnamebody = '_RVCT';
+% files.mat = fullfile(cd, 'data', [results.subjectID fnamebody '.mat']);
+% files.esc = fullfile(cd, 'data', ...
+%    sprintf('%s%s_esc_%s.mat', results.subjectID, fnamebody, ...
+%    datestr(now, 'mmddyy_HHMMSS') ) );
 
 %% Display welcome screen while task is prepared
 Screen('Preference', 'SkipSyncTests', 1)
